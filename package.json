@@ -1,0 +1,50 @@
+{
+  "name": "startalk_web_sdk",
+  "description": "",
+  "version": "1.0.0",
+  "license": "ISC",
+  "scripts": {
+    "start": "npm run serve",
+    "build": "packing build",
+    "build:dev": "NODE_ENV=development packing build",
+    "build:beta": "NODE_ENV=beta packing build",
+    "build:prod": "NODE_ENV=production packing build",
+    "serve": "packing serve",
+    "serve:dist": "packing build && packing serve-dist",
+    "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
+    "eslint": "eslint --fix src",
+    "lint": "echo lint"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "dayjs": "^1.5.16",
+    "events": "^2.0.0",
+    "jquery": "^3.3.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "packing": "3.0.0-beta.14",
+    "polyfill-crypto.getrandomvalues": "^1.0.0",
+    "strophe.js": "1.2.14",
+    "strophejs-plugin-disco": "^0.0.2",
+    "strophejs-plugin-ping": "^0.0.1",
+    "strophejs-plugin-vcard": "^0.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "express": "^4.14.1",
+    "open-browser-webpack-plugin": "^0.0.5",
+    "packing-template-pug": "^2.0.4",
+    "packing-urlrewrite": "^0.1.8",
+    "pre-commit": "^1.2.2",
+    "webpack-dev-middleware": "^3.1.2",
+    "webpack-hot-middleware": "^2.22.1"
+  },
+  "engines": {
+    "node": ">=4.0",
+    "npm": ">=3.0"
+  }
+}
