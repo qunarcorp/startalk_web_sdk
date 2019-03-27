@@ -37,6 +37,7 @@ class Connection extends EventEmitter {
       protocol = protocol === 'https:' ? 'wss:' : 'ws:';
       bind = 'websocket';
     }
+    // sdkConfig.httpurl
     this.stropheConnection = new Strophe.Connection(`${protocol}//${host}${path}/${bind}`);
   }
 

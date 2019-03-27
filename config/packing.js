@@ -6,7 +6,6 @@
  */
 import path from 'path';
 import packingGlob from 'packing-glob';
-import sdkConfig from '../sdk_config.js';
 export default (packing) => {
   const p = packing;
 
@@ -15,22 +14,6 @@ export default (packing) => {
   p.visualizer.enable = false;
 
   const { NODE_ENV } = process.env;
-
-  // 网站自定义配置
-  p.rewriteRules = {
-    // 网站URL与模版的对应路由关系
-    // '^/$': '/index',
-    // '^/messageHelper$': '/messageHelper.pug',
-
-    // http-bind接口转发
-    '^/http-bind$': sdkConfig.httpurl+'/http-bind',
-    // http接口
-    '^/api/(.*)': sdkConfig.apiurl+'/$1',
-    '^/ops/(.*)': sdkConfig.javaurl+'/ops/$1',
-    '^/s/(.*)': sdkConfig.javaurl+'/s/$1',
-    '^/package/(.*)': sdkConfig.javaurl+'/package/$1',
-    '^/file/(.*)': sdkConfig.fileurl+'/file/$1'
-  };
 
   p.path.entries = {
     'qtalk_web_sdk': ['babel-polyfill', path.resolve('./src/sdk/entry.js')]
