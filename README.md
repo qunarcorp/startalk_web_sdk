@@ -62,6 +62,7 @@
 ####聊天
 - 表情：fileurl + /file/v1/emo/d/e/EmojiOne/bb/fixed 
 - 音频资源：/zhuanti/20180423_qtalk_msg.mp3  -----本地assets文件夹
-
+#### 接口支持
+ /ops/* 和 /s/* 的接口暂不支持
 
 
