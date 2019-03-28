@@ -249,7 +249,7 @@ class QtalkSDK extends EventEmitter {
     });
     const req = await axios({
       method: 'post',
-      url: sdkConfig.apiurl+'/domain/get_vcard_info',
+      url: sdkConfig.httpurl+'/domain/get_vcard_info.qunar',
       headers: { 'Content-Type': 'application/json' },
       params: {
         u: this.myId,
@@ -393,7 +393,7 @@ class QtalkSDK extends EventEmitter {
     });
     const req = await axios({
       method: 'post',
-      url: sdkConfig.apiurl+'/domain/get_muc_vcard',
+      url: sdkConfig.httpurl+'/domain/get_muc_vcard.qunar',
       headers: { 'Content-Type': 'application/json' },
       params: {
         u: this.myId,
@@ -706,10 +706,16 @@ class QtalkSDK extends EventEmitter {
    */
   async getCompanyStruct() {
     const { myId, key } = this;
-    const req = await axios.get('api/getdeps', {
+    // const req = await axios.get(sdkConfig.apiurl+'/getdeps', {
+    //   params: {
+    //     u: myId,
+    //     k: key
+    //   }
+    // });
+    const req = await axios.get(sdkConfig.httpurl +'/update/getUpdateUsers.qunar', {
       params: {
-        u: myId,
-        k: key
+        q_ckey: getCookie('q_ckey'),
+        version: 0//全量
       }
     });
     return {
@@ -774,21 +780,36 @@ class QtalkSDK extends EventEmitter {
    */
   async getTopInfo() {
     const { myId, key, domain } = this;
+    // const req = await axios({
+    //   method: 'post',
+    //   url: sdkConfig.apiurl+'/conf/get_person',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   params: {
+    //     u: myId,
+    //     k: key,
+    //     p: 'web',
+    //     d: domain,
+    //     server: domain,
+    //     c: 'qtalk'
+    //   },
+    //   data: JSON.stringify([{
+    //     key: 'kStickJidDic',
+    //     version: '0'
+    //   }])
+    // });
     const req = await axios({
       method: 'post',
-      url: sdkConfig.apiurl+'/conf/get_person',
+      url: sdkConfig.httpurl+'/configuration/getincreclientconfig.qunar',
       headers: { 'Content-Type': 'application/json' },
-      params: {
-        u: myId,
-        k: key,
-        p: 'web',
-        d: domain,
-        server: domain,
-        c: 'qtalk'
-      },
+      // params: {
+      //   username: myId,
+      //   host: domain,
+      //   version: 0,
+      // },
       data: JSON.stringify([{
-        key: 'kStickJidDic',
-        version: '0'
+        username: myId,
+        host: domain,
+        version: 0
       }])
     });
     const res = req.data;
@@ -860,7 +881,7 @@ class QtalkSDK extends EventEmitter {
     const { myId, key, domain } = this;
     const req = await axios({
       method: 'post',
-      url: sdkConfig.apiurl+'/get_increment_mucs',
+      url: sdkConfig.httpurl+'/get_increment_mucs.qunar',
       headers: { 'Content-Type': 'application/json' },
       params: {
         u: myId,
@@ -1044,7 +1065,7 @@ class QtalkSDK extends EventEmitter {
     const { myId, key, domain } = this;
     const ret = await axios({
       method: 'post',
-      url: sdkConfig.apiurl+'/domain/get_user_status?v=10121100',
+      url: sdkConfig.httpurl+'/domain/get_user_status.qunar?v=10121100',
       headers: { 'Content-Type': 'application/json' },
       params: {
         u: myId,
