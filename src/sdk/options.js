@@ -1,7 +1,6 @@
 export default {
-
   debug: false,
-
+  xmpp:"",
   // 链接配置
   connect: {
     reconnectCount: 10, // 最多重连10次
@@ -10,9 +9,7 @@ export default {
     // port: 80, // 端口
     path: '' // 路径
   },
-
   maType: 6, // 平台类型web端：6
-
   // 20 秒ping一次
   pingInterval: 20
 };
