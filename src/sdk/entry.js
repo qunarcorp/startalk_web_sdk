@@ -78,7 +78,6 @@ class QtalkSDK extends EventEmitter {
 
     this.ping = new Ping(this.connection.stropheConnection, this.options.pingInterval);
     this.message = new Message(this.connection.stropheConnection);
-
     this.message.on('ready', (key) => {
       this.key = key;
       isReady = true;
@@ -90,7 +89,8 @@ class QtalkSDK extends EventEmitter {
       //  t   = 1523851940847
       //  key = 619861523851940845287
       //  uid = darlyn
-      const ckey = window.btoa(`u=${this.myId}&k=${MD5.hexdigest(`${key}${t}`).toUpperCase()}&t=${t}`);
+      
+      const ckey = window.btoa(`u=${this.myId}&k=${MD5.hexdigest(`${key}${t}`).toUpperCase()}&d=${sdkConfig.domain}&t=${t}`);
       document.cookie = `q_ckey=${ckey}; domain=${this.options.xmpp}; path=/;`;//darlyn.com
     });
 
@@ -667,7 +667,7 @@ class QtalkSDK extends EventEmitter {
       };
       // 单聊先要建群
       if (newGroup || currentSessionType === 'chat') {
-        currentSessionId = `${id}@conference.${sdkConfig.domain}`;
+        currentSessionId = `${id}@${sdkConfig.domain}`;
         // addHandler (handler, ns, name, type, id, from, options)
         const handler = this.message.addTemplateHandler((iq) => {
           this.message.deleteTemplateHandler(handler);
@@ -713,10 +713,7 @@ class QtalkSDK extends EventEmitter {
     //   }
     // });
     const req = await axios.post('/newapi/update/getUpdateUsers.qunar', {
-      params: {
-        q_ckey: getCookie('q_ckey'),
-        version: 0//全量
-      }
+      version: 0//全量
     });
     return {
       ret: true,
@@ -1061,20 +1058,28 @@ class QtalkSDK extends EventEmitter {
 
   // darlyn/get_user_status?v=10121100&p=qim_windows&u=lffan.liu&k=619861526283933141778&d=ejabhost1
   // data : [{"domain":"ejabhost1","users":["huajun.liu","ping.xue","test"]}]
+  // modify: { "users":["aegon@ejabhost1", "bin.wang@ejabhost1"] }
   async onLineStatus(data) {
     const { myId, key, domain } = this;
+    let obj = {"users":[]};
+    data.length&&data.forEach((v)=>{
+      v.domain;
+      v.users.length&&v.users.forEach((t)=>{
+        obj.users.push(t+"@"+v.domain);
+      })
+    })
     const ret = await axios({
       method: 'post',
       url:'/newapi/domain/get_user_status.qunar?v=10121100',
       headers: { 'Content-Type': 'application/json' },
-      params: {
-        u: myId,
-        k: key,
-        p: 'web',
-        d: domain,
-        v: 0
-      },
-      data: JSON.stringify(data)
+      // params: {
+      //   u: myId,
+      //   k: key,
+      //   p: 'web',
+      //   d: domain,
+      //   v: 0
+      // },
+      data: JSON.stringify(obj)
     });
     const res = ret.data;
     return res;
