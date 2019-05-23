@@ -91,7 +91,7 @@ const audioPlayer = (() => {
   let player;
   const id = createUUID();
   // const file = sdkConfig.javaurl+'/zhuanti/20180423_qtalk_msg.mp3';
-  const file = "../assets/20180423_qtalk_msg,mp3";
+  const file = "../assets/20180423_qtalk_msg.mp3";
   const init = () => {
     if (!player) {
       player = window.document.createElement('audio');
