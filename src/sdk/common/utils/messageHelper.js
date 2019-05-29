@@ -97,7 +97,7 @@ const decode = (content, msgType) => {
     const { FileName, HttpUrl } = file;
     let url = HttpUrl;
     if (url.indexOf('http') === -1) {
-      url = sdkConfig.javaurl + url;
+      url = sdkConfig.fileurl + url;
     }
     // 文件都是单行数据
     return `<a title="file" target="_blank" href="${url}" style="text-decoration:underline;">${FileName}</a>`;
@@ -112,7 +112,7 @@ const decode = (content, msgType) => {
       switch (type) {
         case 'image':
           if (val.indexOf('http') === -1) {
-            val = sdkConfig.javaurl + val;
+            val = sdkConfig.fileurl + val;
           }
           ret = `<a title="image" href="${val}" target="_blank"><img src="${val}" alt="" /></a>`;
           break;
